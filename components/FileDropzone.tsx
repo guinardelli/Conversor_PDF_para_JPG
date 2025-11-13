@@ -1,4 +1,3 @@
-
 import React, { useCallback, useState } from 'react';
 import { FileUp } from 'lucide-react';
 
@@ -61,8 +60,8 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesAdded }) => {
       />
       <label htmlFor="file-upload" className="cursor-pointer">
         <FileUp className="mx-auto h-12 w-12 text-gray-400" />
-        <p className="mt-4 text-lg font-semibold text-white">Drag & drop your PDF files here</p>
-        <p className="mt-1 text-sm text-gray-500">or <span className="text-primary font-medium">click to browse</span></p>
+        <p className="mt-4 text-lg font-semibold text-white">Arraste e solte seus arquivos PDF aqui</p>
+        <p className="mt-1 text-sm text-gray-500">ou <span className="text-primary font-medium">clique para procurar</span></p>
       </label>
     </div>
   );

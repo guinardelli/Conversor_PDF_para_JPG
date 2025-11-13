@@ -1,4 +1,3 @@
-
 import { useState, useCallback } from 'react';
 import { PdfFile, ConversionSettings, ProcessStatus } from '../types';
 
@@ -47,7 +46,7 @@ export const usePdfConverter = () => {
             );
             
             if (imageBlob) {
-                const imageName = `${baseFilename}_page_${pageNum}.${settings.format.toLowerCase()}`;
+                const imageName = `${baseFilename}_pagina_${pageNum}.${settings.format.toLowerCase()}`;
                 allImages.push({ name: imageName, data: imageBlob });
             }
           }
@@ -70,7 +69,7 @@ export const usePdfConverter = () => {
       setStatus(ProcessStatus.DONE);
 
     } catch (error) {
-      console.error("Conversion failed:", error);
+      console.error("Falha na conversão:", error);
       setStatus(ProcessStatus.ERROR);
     }
   }, []);

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ConversionSettings } from '../types';
 
@@ -9,10 +8,10 @@ interface ConversionOptionsProps {
 }
 
 const dpiOptions = [
-  { value: 96, label: '96 DPI (Screen)' },
-  { value: 150, label: '150 DPI (Standard)' },
-  { value: 300, label: '300 DPI (High Quality)' },
-  { value: 600, label: '600 DPI (Print)' },
+  { value: 96, label: '96 DPI (Tela)' },
+  { value: 150, label: '150 DPI (Padrão)' },
+  { value: 300, label: '300 DPI (Alta Qualidade)' },
+  { value: 600, label: '600 DPI (Impressão)' },
 ];
 
 const formatOptions: ConversionSettings['format'][] = ['JPEG', 'PNG'];
@@ -28,11 +27,11 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
 
   return (
     <div className="mt-6 border-t border-dark-700 pt-6">
-       <h2 className="text-xl font-semibold text-white mb-4">Conversion Options</h2>
+       <h2 className="text-xl font-semibold text-white mb-4">Opções de Conversão</h2>
        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
          <div>
             <label htmlFor="dpi-select" className="block text-sm font-medium text-gray-300 mb-2">
-                Resolution (DPI)
+                Resolução (DPI)
             </label>
             <select
                 id="dpi-select"
@@ -46,7 +45,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
             </select>
          </div>
          <div>
-            <span className="block text-sm font-medium text-gray-300 mb-2">Output Format</span>
+            <span className="block text-sm font-medium text-gray-300 mb-2">Formato de Saída</span>
             <div className="flex space-x-2">
                 {formatOptions.map(format => (
                     <button
@@ -66,7 +65,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
          </div>
        </div>
        <div className="mt-4 text-center text-sm text-gray-400">
-            <p>Total pages to convert: <span className="font-bold text-white">{totalPages}</span></p>
+            <p>Total de páginas a converter: <span className="font-bold text-white">{totalPages}</span></p>
        </div>
     </div>
   );

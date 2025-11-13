@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useMemo } from 'react';
 import { FileUp, X, Image as ImageIcon, Download, Loader, FileCheck2, AlertTriangle } from 'lucide-react';
 import { FileDropzone } from './components/FileDropzone';
@@ -66,9 +65,9 @@ const App: React.FC = () => {
         <header className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-2">
              <ImageIcon className="h-10 w-10 text-primary" />
-             <h1 className="text-4xl font-bold text-white tracking-tight">PDF to Image Converter</h1>
+             <h1 className="text-4xl font-bold text-white tracking-tight">PDF para imagem</h1>
           </div>
-          <p className="text-lg text-gray-400">Convert your PDF files to high-quality images, right in your browser.</p>
+          <p className="text-lg text-gray-400">Converta seus arquivos PDF em imagens de alta qualidade, diretamente no seu navegador.</p>
         </header>
         
         <div className="space-y-6">
@@ -86,7 +85,7 @@ const App: React.FC = () => {
                       disabled={files.length === 0}
                     >
                       <FileUp className="h-5 w-5" />
-                      Convert {files.length} PDF{files.length > 1 ? 's' : ''}
+                      Converter {files.length} PDF{files.length > 1 ? 's' : ''}
                     </button>
                   </div>
                 </div>
@@ -96,7 +95,7 @@ const App: React.FC = () => {
 
           {status !== ProcessStatus.IDLE && (
             <div className="bg-dark-900 p-6 rounded-lg shadow-lg text-center">
-              <h2 className="text-2xl font-semibold text-white mb-4">Conversion in Progress</h2>
+              <h2 className="text-2xl font-semibold text-white mb-4">Conversão em Andamento</h2>
               <ProgressBar 
                 status={status} 
                 progress={progress} 
@@ -114,21 +113,21 @@ const App: React.FC = () => {
              <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg relative flex items-center gap-4" role="alert">
                 <AlertTriangle className="h-6 w-6 text-red-400" />
                 <div>
-                  <strong className="font-bold">Conversion Failed! </strong>
-                  <span className="block sm:inline">An unexpected error occurred. Please try again.</span>
+                  <strong className="font-bold">Falha na Conversão! </strong>
+                  <span className="block sm:inline">Ocorreu um erro inesperado. Por favor, tente novamente.</span>
                 </div>
                 <button
                   onClick={handleClearAll}
                   className="ml-auto bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md transition-colors"
                 >
-                  Start Over
+                  Começar de Novo
                 </button>
             </div>
           )}
         </div>
 
         <footer className="text-center mt-12 text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} PDF to Image Converter. All files are processed locally in your browser.</p>
+          <p>&copy; {new Date().getFullYear()} PDF para imagem. Todos os arquivos são processados localmente no seu navegador.</p>
         </footer>
       </main>
     </div>

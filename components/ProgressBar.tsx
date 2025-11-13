@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Loader, CheckCircle } from 'lucide-react';
 import { ProcessStatus } from '../types';
@@ -15,13 +14,13 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ status, progress, conv
   const getStatusText = () => {
     switch(status) {
       case ProcessStatus.CONVERTING:
-        return `Converting file ${convertedFileCount + 1} of ${totalFileCount}...`;
+        return `Convertendo arquivo ${convertedFileCount + 1} de ${totalFileCount}...`;
       case ProcessStatus.ZIPPING:
-        return 'Compressing images into a ZIP file...';
+        return 'Comprimindo imagens em um arquivo ZIP...';
       case ProcessStatus.DONE:
-        return 'Conversion complete!';
+        return 'Conversão concluída!';
       default:
-        return 'Starting...';
+        return 'Iniciando...';
     }
   }
 

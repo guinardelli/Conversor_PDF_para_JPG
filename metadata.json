@@ -1,5 +1,5 @@
 {
-  "name": "PDF to Image Converter",
-  "description": "A web-based tool to convert PDF files into high-quality JPEG or PNG images directly in your browser. Upload your PDFs, choose the desired resolution (DPI) and format, and download the converted images as a single ZIP file.",
+  "name": "PDF para imagem",
+  "description": "Uma ferramenta baseada na web para converter arquivos PDF em imagens JPEG ou PNG de alta qualidade diretamente no seu navegador. Faça upload dos seus PDFs, escolha a resolução (DPI) e o formato desejados e baixe as imagens convertidas como um único arquivo ZIP.",
   "requestFramePermissions": []
 }

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { X, FileText } from 'lucide-react';
 import { PdfFile } from '../types';
@@ -13,12 +12,12 @@ export const FileList: React.FC<FileListProps> = ({ files, onRemoveFile, onClear
   return (
     <div>
         <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-white">Selected Files ({files.length})</h2>
+            <h2 className="text-xl font-semibold text-white">Arquivos Selecionados ({files.length})</h2>
             <button
             onClick={onClearAll}
             className="text-sm font-medium text-primary-text hover:text-white transition-colors"
             >
-            Clear All
+            Limpar Tudo
             </button>
       </div>
       <div className="max-h-60 overflow-y-auto pr-2 space-y-2">
@@ -27,7 +26,7 @@ export const FileList: React.FC<FileListProps> = ({ files, onRemoveFile, onClear
             <FileText className="h-6 w-6 text-primary-text mr-3 flex-shrink-0" />
             <div className="flex-grow overflow-hidden">
               <p className="text-sm font-medium text-gray-200 truncate">{pdfFile.file.name}</p>
-              <p className="text-xs text-gray-400">{pdfFile.numPages} page{pdfFile.numPages > 1 ? 's' : ''}</p>
+              <p className="text-xs text-gray-400">{pdfFile.numPages} página{pdfFile.numPages > 1 ? 's' : ''}</p>
             </div>
             <button
               onClick={() => onRemoveFile(pdfFile.id)}
