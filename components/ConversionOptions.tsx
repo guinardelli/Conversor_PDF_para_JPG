@@ -26,18 +26,18 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
   };
 
   return (
-    <div className="mt-6 border-t border-dark-700 pt-6">
-       <h2 className="text-xl font-semibold text-white mb-4">Opções de Conversão</h2>
+    <div className="mt-6 border-t border-gray-200 pt-6">
+       <h2 className="text-xl font-semibold text-dark-900 mb-4">Opções de Conversão</h2>
        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
          <div>
-            <label htmlFor="dpi-select" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="dpi-select" className="block text-sm font-medium text-gray-700 mb-2">
                 Resolução (DPI)
             </label>
             <select
                 id="dpi-select"
                 value={settings.dpi}
                 onChange={handleDpiChange}
-                className="w-full bg-dark-700 border border-dark-600 rounded-md py-2 px-3 text-white focus:ring-primary focus:border-primary"
+                className="w-full bg-white border border-gray-300 rounded-md py-2 px-3 text-dark-900 focus:ring-primary focus:border-primary"
             >
                 {dpiOptions.map(option => (
                     <option key={option.value} value={option.value}>{option.label}</option>
@@ -45,7 +45,7 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
             </select>
          </div>
          <div>
-            <span className="block text-sm font-medium text-gray-300 mb-2">Formato de Saída</span>
+            <span className="block text-sm font-medium text-gray-700 mb-2">Formato de Saída</span>
             <div className="flex space-x-2">
                 {formatOptions.map(format => (
                     <button
@@ -54,8 +54,8 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
                         onClick={() => handleFormatChange(format)}
                         className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-all ${
                             settings.format === format 
-                            ? 'bg-primary text-white shadow-md' 
-                            : 'bg-dark-700 text-gray-300 hover:bg-dark-600'
+                            ? 'bg-primary text-primary-text shadow-md' 
+                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                         }`}
                     >
                         {format}
@@ -64,8 +64,8 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
             </div>
          </div>
        </div>
-       <div className="mt-4 text-center text-sm text-gray-400">
-            <p>Total de páginas a converter: <span className="font-bold text-white">{totalPages}</span></p>
+       <div className="mt-4 text-center text-sm text-gray-500">
+            <p>Total de páginas a converter: <span className="font-bold text-dark-900">{totalPages}</span></p>
        </div>
     </div>
   );

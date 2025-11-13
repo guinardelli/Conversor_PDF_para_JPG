@@ -44,7 +44,7 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesAdded }) => {
 
   return (
     <div
-      className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-colors duration-300 ${isDragging ? 'border-primary bg-dark-700' : 'border-dark-600 hover:border-primary'}`}
+      className={`relative border-2 border-dashed rounded-lg p-12 text-center transition-colors duration-300 ${isDragging ? 'border-primary bg-yellow-50' : 'border-gray-300 hover:border-primary'}`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
@@ -59,8 +59,8 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesAdded }) => {
         onChange={handleFileChange}
       />
       <label htmlFor="file-upload" className="cursor-pointer">
-        <FileUp className="mx-auto h-12 w-12 text-gray-400" />
-        <p className="mt-4 text-lg font-semibold text-white">Arraste e solte seus arquivos PDF aqui</p>
+        <FileUp className="mx-auto h-12 w-12 text-gray-500" />
+        <p className="mt-4 text-lg font-semibold text-dark-900">Arraste e solte seus arquivos PDF aqui</p>
         <p className="mt-1 text-sm text-gray-500">ou <span className="text-primary font-medium">clique para procurar</span></p>
       </label>
     </div>

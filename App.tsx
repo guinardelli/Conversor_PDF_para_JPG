@@ -60,14 +60,14 @@ const App: React.FC = () => {
   const totalPages = useMemo(() => files.reduce((acc, file) => acc + file.numPages, 0), [files]);
 
   return (
-    <div className="min-h-screen bg-dark-800 font-sans">
+    <div className="min-h-screen bg-gray-100 font-sans">
       <main className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
         <header className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-2">
              <ImageIcon className="h-10 w-10 text-primary" />
-             <h1 className="text-4xl font-bold text-white tracking-tight">PDF para imagem</h1>
+             <h1 className="text-4xl font-bold text-dark-900 tracking-tight">PDF para imagem</h1>
           </div>
-          <p className="text-lg text-gray-400">Converta seus arquivos PDF em imagens de alta qualidade, diretamente no seu navegador.</p>
+          <p className="text-lg text-gray-600">Converta seus arquivos PDF em imagens de alta qualidade, diretamente no seu navegador.</p>
         </header>
         
         <div className="space-y-6">
@@ -75,13 +75,13 @@ const App: React.FC = () => {
             <>
               <FileDropzone onFilesAdded={handleFilesAdded} />
               {files.length > 0 && (
-                <div className="bg-dark-900 p-6 rounded-lg shadow-lg">
+                <div className="bg-white p-6 rounded-lg shadow-lg">
                   <FileList files={files} onRemoveFile={handleRemoveFile} onClearAll={handleClearAll} />
                   <ConversionOptions settings={settings} onSettingsChange={setSettings} totalPages={totalPages} />
                   <div className="mt-6 text-center">
                     <button
                       onClick={handleStartConversion}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-white font-semibold rounded-md shadow-md hover:bg-primary-hover transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-text font-semibold rounded-md shadow-md hover:bg-primary-hover transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                       disabled={files.length === 0}
                     >
                       <FileUp className="h-5 w-5" />
@@ -94,8 +94,8 @@ const App: React.FC = () => {
           )}
 
           {status !== ProcessStatus.IDLE && (
-            <div className="bg-dark-900 p-6 rounded-lg shadow-lg text-center">
-              <h2 className="text-2xl font-semibold text-white mb-4">Conversão em Andamento</h2>
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+              <h2 className="text-2xl font-semibold text-dark-900 mb-4">Conversão em Andamento</h2>
               <ProgressBar 
                 status={status} 
                 progress={progress} 
@@ -110,15 +110,15 @@ const App: React.FC = () => {
           )}
 
           {status === ProcessStatus.ERROR && (
-             <div className="bg-red-900/50 border border-red-700 text-red-300 px-4 py-3 rounded-lg relative flex items-center gap-4" role="alert">
-                <AlertTriangle className="h-6 w-6 text-red-400" />
+             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative flex items-center gap-4" role="alert">
+                <AlertTriangle className="h-6 w-6 text-red-500" />
                 <div>
                   <strong className="font-bold">Falha na Conversão! </strong>
                   <span className="block sm:inline">Ocorreu um erro inesperado. Por favor, tente novamente.</span>
                 </div>
                 <button
                   onClick={handleClearAll}
-                  className="ml-auto bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md transition-colors"
+                  className="ml-auto bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-md transition-colors"
                 >
                   Começar de Novo
                 </button>
