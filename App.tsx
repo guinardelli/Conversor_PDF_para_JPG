@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { FileUp, X, Image as ImageIcon, Download, Loader, FileCheck2, AlertTriangle } from 'lucide-react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { FileDropzone } from './components/FileDropzone';
 import { FileList } from './components/FileList';
 import { ConversionOptions } from './components/ConversionOptions';
@@ -19,11 +18,27 @@ declare global {
 const App: React.FC = () => {
   const [files, setFiles] = useState<PdfFile[]>([]);
   const [settings, setSettings] = useState<ConversionSettings>({
-    dpi: 300,
-    format: 'JPEG',
+    format: 'PNG',
+    quality: 92,
+    allPages: true,
+    pageRange: '',
   });
+  const [isDarkMode, setIsDarkMode] = useState(false);
   
   const { status, progress, convertedFileCount, totalFileCount, convertPdfs, zipUrl, reset } = usePdfConverter();
+
+  useEffect(() => {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDarkMode(prefersDark);
+  }, []);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const handleFilesAdded = useCallback(async (addedFiles: File[]) => {
     const newPdfFiles: PdfFile[] = [];
@@ -35,7 +50,6 @@ const App: React.FC = () => {
           newPdfFiles.push({ file, id: `${file.name}-${Date.now()}`, numPages: pdfDoc.numPages });
         } catch (error) {
           console.error("Error reading PDF metadata:", error);
-          // Optionally add to a list of failed files to show the user
         }
       }
     }
@@ -60,42 +74,53 @@ const App: React.FC = () => {
   const totalPages = useMemo(() => files.reduce((acc, file) => acc + file.numPages, 0), [files]);
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans">
-      <main className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
-        <header className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-2">
-             <ImageIcon className="h-10 w-10 text-primary" />
-             <h1 className="text-4xl font-bold text-dark-900 tracking-tight">PDF para imagem</h1>
-          </div>
-          <p className="text-lg text-gray-600">Converta seus arquivos PDF em imagens de alta qualidade, diretamente no seu navegador.</p>
-        </header>
-        
-        <div className="space-y-6">
-          {status === ProcessStatus.IDLE && (
-            <>
-              <FileDropzone onFilesAdded={handleFilesAdded} />
-              {files.length > 0 && (
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                  <FileList files={files} onRemoveFile={handleRemoveFile} onClearAll={handleClearAll} />
-                  <ConversionOptions settings={settings} onSettingsChange={setSettings} totalPages={totalPages} />
-                  <div className="mt-6 text-center">
-                    <button
-                      onClick={handleStartConversion}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-text font-semibold rounded-md shadow-md hover:bg-primary-hover transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                      disabled={files.length === 0}
-                    >
-                      <FileUp className="h-5 w-5" />
-                      Converter {files.length} PDF{files.length > 1 ? 's' : ''}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
+    <div className="min-h-screen flex flex-col">
+      <button 
+        className="dark-mode-toggle absolute top-4 right-4 p-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+        onClick={() => setIsDarkMode(!isDarkMode)}
+        aria-label="Toggle dark mode"
+      >
+        <span className="material-icons dark:hidden">dark_mode</span>
+        <span className="material-icons hidden dark:inline">light_mode</span>
+      </button>
+
+      <main className="flex-grow flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
+        <div className="max-w-7xl w-full mx-auto">
+          <header className="text-center mb-10">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="bg-primary p-3 rounded-xl">
+                <svg className="h-8 w-8 text-black" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16l4 4-.01-18zM17 11l-2.5-3.15L11.5 12l-1.75-2.2L6 14h12l-1-1z"></path>
+                </svg>
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white">PDF para imagem</h1>
+            </div>
+            <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Converta seus arquivos PDF em imagens de alta qualidade, diretamente no seu navegador.</p>
+          </header>
+
+          {status === ProcessStatus.IDLE && files.length === 0 && (
+             <FileDropzone onFilesAdded={handleFilesAdded} />
           )}
 
-          {status !== ProcessStatus.IDLE && (
-            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-              <h2 className="text-2xl font-semibold text-dark-900 mb-4">Conversão em Andamento</h2>
+          {status === ProcessStatus.IDLE && files.length > 0 && (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="lg:col-span-2">
+                <FileDropzone onFilesAdded={handleFilesAdded} />
+                <FileList files={files} onRemoveFile={handleRemoveFile} />
+              </div>
+              <ConversionOptions 
+                settings={settings} 
+                onSettingsChange={setSettings} 
+                onConvert={handleStartConversion}
+                onCancel={handleClearAll}
+                totalPages={totalPages}
+              />
+            </div>
+          )}
+          
+          {(status === ProcessStatus.CONVERTING || status === ProcessStatus.ZIPPING) && (
+             <div className="bg-white dark:bg-card-dark p-6 rounded-lg shadow-lg text-center w-full max-w-3xl">
+              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white mb-4">Conversão em Andamento</h2>
               <ProgressBar 
                 status={status} 
                 progress={progress} 
@@ -106,12 +131,14 @@ const App: React.FC = () => {
           )}
 
           {status === ProcessStatus.DONE && zipUrl && (
-            <DownloadSection zipUrl={zipUrl} onStartNew={handleClearAll} />
+             <div className="w-full max-w-3xl">
+                <DownloadSection zipUrl={zipUrl} onStartNew={handleClearAll} />
+             </div>
           )}
 
           {status === ProcessStatus.ERROR && (
-             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative flex items-center gap-4" role="alert">
-                <AlertTriangle className="h-6 w-6 text-red-500" />
+             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative flex items-center gap-4 w-full max-w-3xl" role="alert">
+                <span className="material-icons text-red-500">error</span>
                 <div>
                   <strong className="font-bold">Falha na Conversão! </strong>
                   <span className="block sm:inline">Ocorreu um erro inesperado. Por favor, tente novamente.</span>
@@ -125,11 +152,11 @@ const App: React.FC = () => {
             </div>
           )}
         </div>
-
-        <footer className="text-center mt-12 text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} PDF para imagem. Todos os arquivos são processados localmente no seu navegador.</p>
-        </footer>
       </main>
+
+      <footer className="text-center p-6 text-slate-500 dark:text-slate-400 text-sm">
+        <p>© {new Date().getFullYear()} PDF para imagem. Todos os arquivos são processados localmente no seu navegador.</p>
+      </footer>
     </div>
   );
 };

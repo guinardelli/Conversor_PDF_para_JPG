@@ -4,27 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PDF para imagem</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
-              primary: {
-                DEFAULT: '#fcc200', // Marna Yellow
-                hover: '#e3af00',   // Darker yellow for hover
-                text: '#111827',    // Dark text for contrast on yellow buttons
-              },
-              dark: {
-                900: '#111827',
-                800: '#1f2937',
-                700: '#374151',
-                600: '#4b5563',
-              }
-            }
-          }
-        }
-      }
+              primary: "#FBBF24", // amber-400
+              "background-light": "#F8FAFC", // slate-50
+              "background-dark": "#18181B", // zinc-900
+              "card-light": "#FFFFFF",
+              "card-dark": "#1f2937", // gray-800
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
     <!-- PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -46,7 +46,7 @@
 }
 </script>
 </head>
-  <body class="bg-gray-100 text-gray-800">
+  <body class="font-display bg-background-light dark:bg-background-dark text-slate-700 dark:text-slate-300 antialiased">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

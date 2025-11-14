@@ -1,42 +1,36 @@
 import React from 'react';
-import { X, FileText } from 'lucide-react';
 import { PdfFile } from '../types';
 
 interface FileListProps {
   files: PdfFile[];
   onRemoveFile: (fileId: string) => void;
-  onClearAll: () => void;
 }
 
-export const FileList: React.FC<FileListProps> = ({ files, onRemoveFile, onClearAll }) => {
+export const FileList: React.FC<FileListProps> = ({ files, onRemoveFile }) => {
+  if (files.length === 0) {
+    return null;
+  }
+
   return (
-    <div>
-        <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-dark-900">Arquivos Selecionados ({files.length})</h2>
-            <button
-            onClick={onClearAll}
-            className="text-sm font-medium text-gray-500 hover:text-primary transition-colors"
-            >
-            Limpar Tudo
-            </button>
-      </div>
-      <div className="max-h-60 overflow-y-auto pr-2 space-y-2">
-        {files.map(pdfFile => (
-          <div key={pdfFile.id} className="flex items-center bg-gray-50 p-3 rounded-md">
-            <FileText className="h-6 w-6 text-primary mr-3 flex-shrink-0" />
+    <div className="mt-6 space-y-3">
+      {files.map(pdfFile => (
+        <div key={pdfFile.id} className="flex items-center justify-between bg-slate-100 dark:bg-slate-800 p-3 rounded-lg">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <span className="material-icons text-slate-500">description</span>
             <div className="flex-grow overflow-hidden">
-              <p className="text-sm font-medium text-gray-900 truncate">{pdfFile.file.name}</p>
-              <p className="text-xs text-gray-500">{pdfFile.numPages} página{pdfFile.numPages > 1 ? 's' : ''}</p>
+                <span className="font-medium text-slate-700 dark:text-slate-300 truncate block">{pdfFile.file.name}</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{pdfFile.numPages} página{pdfFile.numPages !== 1 ? 's' : ''}</span>
             </div>
-            <button
-              onClick={() => onRemoveFile(pdfFile.id)}
-              className="ml-4 p-1 rounded-full text-gray-500 hover:bg-gray-200 hover:text-dark-900 transition-colors"
-            >
-              <X className="h-4 w-4" />
-            </button>
           </div>
-        ))}
-      </div>
+          <button
+            onClick={() => onRemoveFile(pdfFile.id)}
+            className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-red-100 dark:hover:bg-red-900/50 group"
+            aria-label={`Remover ${pdfFile.file.name}`}
+          >
+            <span className="material-icons text-sm text-slate-600 dark:text-slate-300 group-hover:text-red-600 dark:group-hover:text-red-400">close</span>
+          </button>
+        </div>
+      ))}
     </div>
   );
 };

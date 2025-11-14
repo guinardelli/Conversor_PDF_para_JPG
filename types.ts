@@ -1,4 +1,3 @@
-
 export interface PdfFile {
   id: string;
   file: File;
@@ -6,8 +5,10 @@ export interface PdfFile {
 }
 
 export interface ConversionSettings {
-  dpi: number;
-  format: 'JPEG' | 'PNG';
+  format: 'JPG' | 'PNG' | 'TIFF';
+  quality: number; // 0-100
+  allPages: boolean;
+  pageRange: string;
 }
 
 export enum ProcessStatus {
