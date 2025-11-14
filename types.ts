@@ -9,6 +9,7 @@ export interface ConversionSettings {
   quality: number; // 0-100
   allPages: boolean;
   pageRange: string;
+  dpi: number;
 }
 
 export enum ProcessStatus {

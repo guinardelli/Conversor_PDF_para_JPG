@@ -21,6 +21,13 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
     onSettingsChange({ ...settings, quality: parseInt(e.target.value, 10) });
   };
   
+  const handleDpiChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const dpiValue = parseInt(e.target.value, 10);
+    if (!isNaN(dpiValue)) {
+      onSettingsChange({ ...settings, dpi: dpiValue });
+    }
+  };
+
   const handleAllPagesToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     onSettingsChange({ ...settings, allPages: e.target.checked });
   };
@@ -72,6 +79,21 @@ export const ConversionOptions: React.FC<ConversionOptionsProps> = ({ settings, 
             <span className="text-sm text-slate-500">Alta</span>
           </div>
           {settings.format === 'PNG' && <p className="text-xs text-slate-400 mt-2 text-center">A qualidade é sempre máxima para o formato PNG.</p>}
+        </div>
+
+        <div>
+            <label htmlFor="dpi" className="block text-sm font-medium mb-2 text-slate-600">Resolução (DPI)</label>
+            <input 
+                id="dpi" 
+                type="number" 
+                min="72"
+                max="600"
+                step="1"
+                value={settings.dpi}
+                onChange={handleDpiChange}
+                className="w-full border-slate-300 bg-slate-50 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50 text-slate-700"
+            />
+            <p className="text-xs text-slate-400 mt-2 text-center">Valores mais altos resultam em imagens de maior qualidade e tamanho.</p>
         </div>
 
         <div>

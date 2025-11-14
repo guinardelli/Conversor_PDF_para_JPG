@@ -22,6 +22,7 @@ const App: React.FC = () => {
     quality: 92,
     allPages: true,
     pageRange: '',
+    dpi: 300,
   });
   
   const { status, progress, convertedFileCount, totalFileCount, convertPdfs, zipUrl, reset } = usePdfConverter();
