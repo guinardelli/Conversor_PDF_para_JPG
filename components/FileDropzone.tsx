@@ -43,11 +43,11 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesAdded }) => {
     }
   };
 
-  const borderClass = isDragging ? 'border-primary' : 'border-slate-300 dark:border-slate-700';
+  const borderClass = isDragging ? 'border-primary' : 'border-slate-300';
 
   return (
     <div
-      className={`relative flex flex-col items-center justify-center w-full min-h-[300px] border-2 border-dashed ${borderClass} rounded-xl p-8 text-center bg-white/50 dark:bg-black/20 transition-colors duration-200`}
+      className={`relative flex flex-col items-center justify-center w-full min-h-[300px] border-2 border-dashed ${borderClass} rounded-xl p-8 text-center bg-white/50 transition-colors duration-200`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
@@ -62,9 +62,9 @@ export const FileDropzone: React.FC<FileDropzoneProps> = ({ onFilesAdded }) => {
         onChange={handleFileChange}
       />
       <label htmlFor="file-upload" className="flex flex-col items-center justify-center cursor-pointer">
-        <span className="material-icons text-5xl text-slate-400 dark:text-slate-500 mb-4">upload_file</span>
-        <p className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-1">Arraste e solte seus arquivos PDF aqui</p>
-        <p className="text-slate-500 dark:text-slate-400">ou <span className="text-primary font-semibold hover:underline">clique para procurar</span></p>
+        <span className="material-icons text-5xl text-slate-400 mb-4">upload_file</span>
+        <p className="text-xl font-semibold text-slate-800 mb-1">Arraste e solte seus arquivos PDF aqui</p>
+        <p className="text-slate-500">ou <span className="text-primary font-semibold hover:underline">clique para procurar</span></p>
       </label>
     </div>
   );
