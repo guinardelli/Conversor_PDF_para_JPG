@@ -134,6 +134,7 @@ const App: React.FC = () => {
 
       <footer className="text-center p-6 text-slate-500 text-sm">
         <p>© {new Date().getFullYear()} PDF para imagem. Todos os arquivos são processados localmente no seu navegador.</p>
+        <p className="mt-2">Criado com Google AI por Guilherme Luiz</p>
       </footer>
     </div>
   );
